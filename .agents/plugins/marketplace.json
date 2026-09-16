@@ -1,7 +1,7 @@
 {
   "name": "ara",
   "interface": {
-    "displayName": "Ara"
+    "displayName": "Reason Machines"
   },
   "plugins": [
     {
@@ -12,6 +12,18 @@
       },
       "policy": {
         "installation": "AVAILABLE"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "reason",
+      "source": {
+        "source": "local",
+        "path": "./plugins/reason"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
       },
       "category": "Productivity"
     }

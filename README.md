@@ -1,65 +1,134 @@
-# Ara API integration guidance
+# Reason for Claude Code and Codex
 
-Official, secretless API-integration guidance for Codex and Claude Code. These
-plugins help an agent build against Ara's public REST API; they do not configure
-a remote tool server, browser authorization, API key, header, local executable,
-or hook.
+Connect a coding agent to your Reason workspace at **https://mcp.reasonmachines.com/mcp**.
+Sign in through your browser, choose a workspace, review permissions, and connect.
+The plugin contains no API key, credential, local executable or hook.
 
-## Install
-
-### Codex
-
-```sh
-codex plugin marketplace add Aradotso/ara-mcp
-codex plugin add ara@ara
-```
+## Install the Reason plugin
 
 ### Claude Code
 
 ```sh
-claude plugin marketplace add Aradotso/ara-mcp
-claude plugin install ara@ara
+claude plugin marketplace add reason-machines/ara-mcp
+claude plugin install reason@ara
 ```
 
-The plugin only provides API-integration guidance. It does not sign anyone in,
-request a browser approval, or create a credential.
+Open `/mcp` in Claude Code and authenticate Reason when prompted.
 
-## Build an integration
-
-1. Create a minimally scoped, organization-pinned `ara_` key in **Settings →
-   Ara API** and place it only in the calling service or CI secret manager.
-2. Call the public REST API at `https://api.ara.so/v3`; start with
-   `GET /v3/self` to resolve the key's organization.
-3. Use the [API quickstart](https://docs.ara.so/api-quickstart) and
-   [endpoint reference](https://docs.ara.so/api-reference) for schemas,
-   pagination, idempotency, and error handling.
-4. Rotate or revoke the key when the integration ends. Never put it in a
-   repository, prompt, artifact, log, or generated file.
-
-## What the plugin does
-
-The Ara skill guides an agent to create and monitor bounded cloud coding
-sessions through the documented REST API. It does not grant Ara access to the
-local checkout or act on behalf of a user without an explicitly supplied,
-scoped API key.
-
-## Security
-
-- The package contains no credential, authorization header, local hook, or
-  executable setup step.
-- API keys are supplied only by the calling service or CI secret manager; they
-  are never stored or read by the package.
-- Every API request must use the intended organization and the scopes required
-  for that operation.
-- Read [SECURITY.md](SECURITY.md) to report a vulnerability.
-
-## Development verification
+### Codex
 
 ```sh
-claude plugin validate --strict plugins/ara-claude
-codex plugin marketplace add .
-codex plugin add ara@ara
+codex plugin marketplace add reason-machines/ara-mcp
+codex plugin add reason@ara
 ```
 
-Use a temporary `HOME`/`CODEX_HOME` when testing the install commands so the
-test does not alter your personal marketplace configuration.
+Enable Reason and complete the browser authentication prompt. Reload the client if
+its tool list was already open when you installed the plugin.
+
+These are Reason Machines' publisher-owned plugins. Installation does not depend
+on acceptance into Anthropic's curated marketplace or OpenAI's public directory;
+those services review and approve listings separately. The marketplace identifier
+remains `ara` for compatibility with existing installations.
+
+Already have the `ara` marketplace? Refresh it before installing `reason@ara`:
+
+```sh
+# Claude Code
+claude plugin marketplace update ara
+# Codex
+codex plugin marketplace upgrade ara
+```
+
+## Connect without a plugin
+
+### Claude Code
+
+```sh
+claude mcp add --transport http reason https://mcp.reasonmachines.com/mcp
+```
+
+Then open `/mcp` and authenticate Reason.
+
+### Codex
+
+```sh
+codex mcp add reason --url https://mcp.reasonmachines.com/mcp
+codex mcp login reason
+```
+
+### Other MCP clients
+
+Choose a remote **Streamable HTTP** server with URL
+`https://mcp.reasonmachines.com/mcp` and OAuth authentication. For example:
+
+```json
+{
+  "mcpServers": {
+    "reason": {
+      "type": "http",
+      "url": "https://mcp.reasonmachines.com/mcp"
+    }
+  }
+}
+```
+
+For headless integrations, a scoped Reason API key can be provided by your
+client's secret manager as an Authorization bearer header. Never put a token in
+this repository, a prompt, a shared configuration file, or a URL. OAuth credentials
+are audience-bound: a REST login cannot be reused as an MCP login.
+
+## Try it
+
+- “Show my Reason projects and recent sessions.”
+- “Create a project for this repository and add these instructions.”
+- “Find my session about the billing bug and show its latest messages.”
+- “Archive this project, then restore it.”
+
+The tools follow the active public v3 contract and your granted scopes. Start with
+`getSelf` to check the connected workspace. Path and query arguments are top-level;
+JSON request bodies go in `body`. Workspace selection is automatic and pinned to
+the connection.
+
+For example, `listProjects` accepts `{"archived":"include"}`. `updateProject`
+accepts `{"projectId":"…","body":{"project_md":{"content":"…","expected_revision":1}}}`.
+Read the current `project_document.revision` with `getProject` first. A stale
+revision returns 409, preserving the newer instructions.
+
+Creating a session starts asynchronous work; inspect its status before assuming
+it finished. Follow pagination cursors for complete lists. Tool results preserve
+API status and data, including permission errors, conflicts and rate limits.
+
+All active v3 operations are represented. Deprecated compatibility aliases and
+retired routes are omitted. File uploads take `body.filename` and
+`body.data_base64`, limited to 1 MiB; use REST for larger uploads. Downloads return
+an authorized `download_url`, never forward your Reason bearer to that URL.
+Large results are bounded at 2 MiB; request a smaller page or use REST.
+
+## Permissions and disconnection
+
+Each connection is bound to the workspace chosen during consent. Tools reuse the
+API's scope, membership, role, private-project and IP access checks. Stored secrets
+remain write-only. MCP does not grant arbitrary control of your Mac or bypass a
+service's OAuth approval. Revoking a connection or removing its workspace
+membership stops access. Use your client's disconnect/logout controls and Reason's
+connected-app controls when the integration is no longer needed.
+
+## Existing Ara guidance plugins
+
+The `ara@ara` plugins remain available and unchanged. They provide REST integration
+guidance only and do not configure a remote server or sign anyone in. Installing
+the new `reason@ara` plugin is an explicit choice.
+
+## Support and validation
+
+Contact [Reason Machines](mailto:contact@reasonmachines.com).
+See [SECURITY.md](SECURITY.md) for vulnerability reporting.
+
+```sh
+claude plugin validate --strict plugins/reason
+claude plugin validate --strict .claude-plugin/marketplace.json
+```
+
+Validate the Codex manifest with the Codex plugin validator. Test installations in
+an isolated client configuration directory, preserving personal installations.
+Production connection and directory approval are separate from manifest validation.
