@@ -1,31 +1,12 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "ara",
+  "name": "reason",
   "description": "Reason Machines plugins for Claude Code.",
   "owner": {
     "name": "Reason Machines",
     "email": "contact@reasonmachines.com"
   },
   "plugins": [
-    {
-      "name": "ara",
-      "source": "./plugins/ara-claude",
-      "description": "Build scoped Ara REST API integrations from Claude Code.",
-      "author": {
-        "name": "Ara",
-        "url": "https://ara.so"
-      },
-      "category": "productivity",
-      "repository": "https://github.com/Aradotso/ara-mcp",
-      "license": "MIT",
-      "keywords": [
-        "ara",
-        "api",
-        "rest",
-        "cloud-coding",
-        "handoff"
-      ]
-    },
     {
       "name": "reason",
       "source": "./plugins/reason",
@@ -36,7 +17,7 @@
         "url": "https://reasonmachines.com"
       },
       "category": "productivity",
-      "repository": "https://github.com/reason-machines/ara-mcp",
+      "repository": "https://github.com/reason-machines/reason-mcp",
       "license": "MIT"
     }
   ]

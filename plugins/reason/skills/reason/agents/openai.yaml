@@ -1,0 +1,7 @@
+interface:
+  display_name: "Reason"
+  short_description: "Work with Reason projects and coding sessions"
+  icon_small: "./assets/reason-logo.png"
+  icon_large: "./assets/reason-logo.png"
+  brand_color: "#000000"
+  default_prompt: "Use $reason to show my projects and recent coding sessions."

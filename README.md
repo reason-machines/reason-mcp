@@ -1,4 +1,4 @@
-# Reason for Claude Code and Codex
+# Reason MCP for Claude Code and Codex
 
 Connect a coding agent to your Reason workspace at **https://mcp.reasonmachines.com/mcp**.
 Sign in through your browser, choose a workspace, review permissions, and connect.
@@ -9,8 +9,8 @@ The plugin contains no API key, credential, local executable or hook.
 ### Claude Code
 
 ```sh
-claude plugin marketplace add reason-machines/ara-mcp
-claude plugin install reason@ara
+claude plugin marketplace add reason-machines/reason-mcp
+claude plugin install reason@reason
 ```
 
 Open `/mcp` in Claude Code and authenticate Reason when prompted.
@@ -18,8 +18,8 @@ Open `/mcp` in Claude Code and authenticate Reason when prompted.
 ### Codex
 
 ```sh
-codex plugin marketplace add reason-machines/ara-mcp
-codex plugin add reason@ara
+codex plugin marketplace add reason-machines/reason-mcp
+codex plugin add reason@reason
 ```
 
 Enable Reason and complete the browser authentication prompt. Reload the client if
@@ -27,17 +27,16 @@ its tool list was already open when you installed the plugin.
 
 These are Reason Machines' publisher-owned plugins. Installation does not depend
 on acceptance into Anthropic's curated marketplace or OpenAI's public directory;
-those services review and approve listings separately. The marketplace identifier
-remains `ara` for compatibility with existing installations.
+those services review and approve listings separately.
 
-Already have the `ara` marketplace? Refresh it before installing `reason@ara`:
+In the Codex app, open **Plugins → Add → Add plugin marketplace**, paste
+`https://github.com/reason-machines/reason-mcp`, and add the marketplace. Leave
+**Git ref** and **Sparse paths** empty. Select **Reason MCP → Install**, then
+complete the browser authentication prompt. No separate MCP configuration is needed.
 
-```sh
-# Claude Code
-claude plugin marketplace update ara
-# Codex
-codex plugin marketplace upgrade ara
-```
+The marketplace identifier is `reason`. It can be added while the retired `ara`
+marketplace is still installed, without a name collision. After installing Reason
+MCP, remove the old plugins and marketplace through your client's plugin settings.
 
 ## Connect without a plugin
 
@@ -112,12 +111,6 @@ remain write-only. MCP does not grant arbitrary control of your Mac or bypass a
 service's OAuth approval. Revoking a connection or removing its workspace
 membership stops access. Use your client's disconnect/logout controls and Reason's
 connected-app controls when the integration is no longer needed.
-
-## Existing Ara guidance plugins
-
-The `ara@ara` plugins remain available and unchanged. They provide REST integration
-guidance only and do not configure a remote server or sign anyone in. Installing
-the new `reason@ara` plugin is an explicit choice.
 
 ## Support and validation
 
