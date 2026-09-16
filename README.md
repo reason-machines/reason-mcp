@@ -30,6 +30,15 @@ on acceptance into Anthropic's curated marketplace or OpenAI's public directory;
 those services review and approve listings separately. The marketplace identifier
 remains `ara` for compatibility with existing installations.
 
+Already have the `ara` marketplace? Refresh it before installing `reason@ara`:
+
+```sh
+# Claude Code
+claude plugin marketplace update ara
+# Codex
+codex plugin marketplace upgrade ara
+```
+
 ## Connect without a plugin
 
 ### Claude Code
