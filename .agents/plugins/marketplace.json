@@ -1,20 +1,9 @@
 {
-  "name": "ara",
+  "name": "reason",
   "interface": {
-    "displayName": "Reason Machines"
+    "displayName": "Reason MCP"
   },
   "plugins": [
-    {
-      "name": "ara",
-      "source": {
-        "source": "local",
-        "path": "./plugins/ara-codex"
-      },
-      "policy": {
-        "installation": "AVAILABLE"
-      },
-      "category": "Productivity"
-    },
     {
       "name": "reason",
       "source": {

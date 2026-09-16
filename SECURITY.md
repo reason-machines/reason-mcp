@@ -2,14 +2,14 @@
 
 ## Scope
 
-This repository contains declarative marketplace packages and public API
-integration guidance. It must remain secretless: do not add API keys, client
-secrets, Authorization headers, cookies, local hooks, executable setup scripts,
-or remote-tool configuration.
+This repository contains declarative Reason MCP plugins for Codex and Claude Code.
+Packages must remain secretless: do not add API keys, client secrets, Authorization
+headers, cookies, local hooks, or executable setup scripts.
 
-External integrations use the public REST API at `https://api.ara.so/v3` with a
-least-privilege `ara_` API key kept only in the calling service or CI secret
-manager.
+The plugins configure the remote Streamable HTTP server at
+`https://mcp.reasonmachines.com/mcp`. Authentication uses the client's browser OAuth
+flow. The user chooses a workspace and reviews permissions before connecting.
+Clients manage credentials; the plugin package never contains them.
 
 ## Reporting a vulnerability
 
@@ -19,5 +19,4 @@ Do not include secrets, access tokens, or customer data in the initial report.
 ## Supported release
 
 Only the default branch and the marketplace packages published from it are
-supported. The packages never create or store user credentials; callers use a
-scoped API key for explicitly requested service or CI integrations.
+supported. The MCP retains the public API's scope and workspace access checks.

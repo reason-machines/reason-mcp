@@ -1,14 +1,14 @@
 {
   "name": "reason",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Manage Reason projects and coding sessions through the public MCP.",
   "author": {
     "name": "Reason Machines",
     "email": "contact@reasonmachines.com",
     "url": "https://reasonmachines.com"
   },
-  "homepage": "https://github.com/reason-machines/ara-mcp",
-  "repository": "https://github.com/reason-machines/ara-mcp",
+  "homepage": "https://github.com/reason-machines/reason-mcp",
+  "repository": "https://github.com/reason-machines/reason-mcp",
   "license": "MIT",
   "keywords": [
     "reason",
@@ -19,7 +19,7 @@
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "Reason",
+    "displayName": "Reason MCP",
     "shortDescription": "Work with Reason from your coding agent.",
     "longDescription": "Connect your Reason workspace to manage projects and coding sessions with the same permissions as the public API.",
     "developerName": "Reason Machines",
