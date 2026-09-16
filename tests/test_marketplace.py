@@ -52,6 +52,12 @@ class MarketplaceInstallation(unittest.TestCase):
                 }}
             })
             self.assertTrue((cached[0].parent / 'skills/reason/SKILL.md').is_file())
+            plugin = json.loads((cached[0].parent / '.codex-plugin/plugin.json').read_text())
+            for key in ['composerIcon', 'logo', 'logoDark']:
+                icon = cached[0].parent / plugin['interface'][key]
+                self.assertEqual(icon.read_bytes()[:8], b'\x89PNG\r\n\x1a\n')
+            self.assertTrue((cached[0].parent / 'skills/reason/agents/openai.yaml').is_file())
+
             for path in ['.agents/plugins/marketplace.json', '.claude-plugin/marketplace.json']:
                 manifest = json.loads((ROOT / path).read_text())
                 self.assertEqual(manifest['name'], 'reason')
